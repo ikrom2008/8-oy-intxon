@@ -154,13 +154,18 @@
         font-size: 11px;
         opacity: 50%;
     }
-    .addcart{
+    
+    img{
+        margin-bottom: 20px;
+    }
+}
+.addcart{
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
         p{
-            font-size: 110%;
+            font-size: 100%;
         font-weight: 600;
         }
         button{
@@ -172,10 +177,6 @@
             color: white;
         }
     }
-    img{
-        margin-bottom: 20px;
-    }
-}
 .likebtn{
     position: absolute;
     top: 0;
@@ -324,21 +325,22 @@
 }
 @media screen and (max-width: 600px){
     .list{
-        width: 50%;
+        width:80%;
     }
 }
 @media screen and (max-width: 500px){
     .list{
-        width: 80%;
+        width: 100%;
         img{
             width: 100%;
         }
         div{
             width: 100%;
-            flex-direction: column;
-        }
-        .addcart{
-            align-items: start;
+            gap: 10px;
+            align-items: center;
+            button{
+                width: 50px;
+            }
         }
     }
     .information h3{
@@ -346,6 +348,16 @@
     }
     .information div{
         width: 100%;
+    }
+}
+@media screen and (max-width: 430px){
+    .list{
+        width: 90%;
+        .addcart{
+            p{
+                font-size: small;
+            }
+        }
     }
 }
 @media screen and (max-width: 470px){

@@ -3,6 +3,10 @@
     padding-top: 25px;
     position: relative;
     padding-bottom: 450px;
+    transition: 0;
+    *{
+        transition: 0;
+    }
 }
 .Slider {
     width: 100%;

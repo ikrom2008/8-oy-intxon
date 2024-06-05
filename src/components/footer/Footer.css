@@ -21,6 +21,9 @@
         flex-direction: column;
         gap: 20px;
         height: 100%;
+        li{
+            cursor: pointer;
+        }
     }
 }
 .imageli{

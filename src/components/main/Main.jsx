@@ -25,7 +25,7 @@ function Main({category, product}) {
         <li className='list' key={item.id}>
             <button className='likebtn'><IoMdHeartEmpty /></button>
             <img src={item.image} alt="" />
-            <h4>{item.title}</h4>
+            <h4>{item.title.slice(0,15)}</h4>
             <span>{+item.price + 100 + '.00'}₽</span>
             <div className='addcart'>
             <p>{item.price}₽</p>
