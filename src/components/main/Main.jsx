@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Main.css'
 import { IoIosArrowRoundBack, IoIosArrowRoundForward, IoMdHeartEmpty } from 'react-icons/io'
 import yorliqimg from '../../assets/yorliq.png'
@@ -11,7 +11,15 @@ import home2 from '../../assets/home2.png'
 import home3 from '../../assets/home3.png'
 import { LuShoppingCart } from 'react-icons/lu'
 import { MdArrowOutward } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { togleWishlist } from '../context/wishlistSlice'
+import { FaHeart } from 'react-icons/fa'
 function Main({category, product}) {
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
+    const [more,setMore] = useState(null)
+    let wish = useSelector(state => state.wishlist.value)
     let categories = category?.map((item) => (
         <div className='category' key={item.id}>
             <div>
@@ -23,8 +31,8 @@ function Main({category, product}) {
     ))
     let products = product?.map((item) => (
         <li className='list' key={item.id}>
-            <button className='likebtn'><IoMdHeartEmpty /></button>
-            <img src={item.image} alt="" />
+            <button className='likebtn' onClick={() => dispatch(togleWishlist(item))}>{wish.some(w => w.id === item.id) ?<FaHeart size={22} /> : <IoMdHeartEmpty size={25} />}</button>
+            <img src={item.image} alt="" onClick={() => navigate(`product/${item.id}`)} />
             <h4>{item.title.slice(0,15)}</h4>
             <span>{+item.price + 100 + '.00'}₽</span>
             <div className='addcart'>
@@ -76,7 +84,7 @@ function Main({category, product}) {
       <section className='productsection'>
       <div className='sectiontitle'>
             <h3>Популярные товары</h3>
-            <button className='arrowbtn'>Все товары <IoIosArrowRoundForward size={20} /></button>
+            <button className='arrowbtn' onClick={() => navigate('/allproducts')}>Все товары <IoIosArrowRoundForward size={20} /></button>
         </div>
         <ul className='categories'>
             <li>Светильники</li>
@@ -90,9 +98,10 @@ function Main({category, product}) {
         </ul>
         <ul className='lists'>
             {
-                products
+                more ? products : products.slice(0,8)
             }
         </ul>
+        <button onClick={() => setMore(!more)} className='loadhide'>{more ? 'Hide': 'Load more'}</button>
       </section>
       <section className='brandsection'>
       <div className='sectiontitle'>
@@ -103,10 +112,10 @@ function Main({category, product}) {
             </div>
         </div>
             <div className="imgcontainer">
-                <img src={arte} alt="" />
-                <img src={divi} alt="" />
-                <img src={odeon} alt="" />
-                <img src={arte} alt="" />
+                <img src={arte} alt=""  />
+                <img src={divi} alt="" className='noimg3' />
+                <img src={odeon} alt="" className='noimg2' />
+                <img src={arte} alt="" className='noimg1'/>
             </div>
       </section>
       <section className='blogsection'>

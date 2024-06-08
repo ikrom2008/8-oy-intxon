@@ -5,7 +5,7 @@ import banner2 from '../../assets/banner2.jpg'
 import banner3 from '../../assets/banner3.png'
 function Hero() {
     const [slideIndex, setSlideIndex] = useState(0);
-
+  
     useEffect(() => {
         const intervalId = setInterval(() => {
           showSlide(1);

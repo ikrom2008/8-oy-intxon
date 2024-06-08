@@ -3,9 +3,10 @@ import './Footer.css'
 import logo from '../../assets/logo.svg'
 import payment from '../../assets/payment.png'
 import vk from '../../assets/vk.png'
-function Footer() {
+function Footer({night}) {
   return (
-    <footer className='footer'>
+    <div className={night ? 'nightlight': ''}>
+      <footer className='footer'>
       <div className='uls'>
       <ul>
         <li><img src={logo} alt="" /></li>
@@ -44,6 +45,8 @@ function Footer() {
       </ul>
       </div>
     </footer>
+    </div>
+    
   )
 }
 
