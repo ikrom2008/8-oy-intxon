@@ -215,3 +215,37 @@
         gap: 20px;
     }
 }
+.search{
+    position: relative;
+}
+.searched{
+    position: absolute;
+    background: white;
+    list-style: none;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    border-radius: 10px;
+    z-index: 99999999999;
+    li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 25px;
+        width: 100%;
+        padding-left: 10px;
+        height: 55px;
+        margin-bottom: 5px;
+        div{
+            width: 80%;
+            height: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+        img{
+            width: 70px;
+            height: 50px;
+        }
+    }
+}

@@ -93,4 +93,16 @@ img{
             }
         }
     }
+    .cart{
+        *{
+            color: white;
+            background: rgb(49, 49, 49);
+        }
+        .carttitle{
+            background: #000;
+        }
+    }
+    .loadhide{
+        color: white;
+    }
 }

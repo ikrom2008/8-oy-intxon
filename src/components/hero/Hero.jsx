@@ -7,6 +7,7 @@ function Hero() {
     const [slideIndex, setSlideIndex] = useState(0);
   
     useEffect(() => {
+        window.scrollTo(0,0)
         const intervalId = setInterval(() => {
           showSlide(1);
         }, 3000);

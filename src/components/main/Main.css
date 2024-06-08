@@ -416,4 +416,6 @@
         display: none;
     }
 }
-
+.categorytitle:hover{
+    opacity: 0.4;
+}

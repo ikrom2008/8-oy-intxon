@@ -8,9 +8,27 @@ import { FiShoppingCart } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { Switch } from '@mui/material'
 import { useSelector } from 'react-redux'
-function Header({night,setNight}) {
+import { MdArrowForwardIos } from 'react-icons/md'
+function Header({night,setNight,product}) {
+    const [search,setSearch] = useState('')
+    let handlesearch = (data) => {
+        return data?.filter((user) => user?.title?.toLowerCase()?.includes(search?.toLowerCase()?.trim()))
+    }
+    let pr = handlesearch(product)?.map((item) => (
+      <li key={item.id} onClick={() => {
+        navigate(`/product/${item.id}`)
+        setSearch('')
+      }}>
+        <div>
+        <img src={item.image}alt="" />
+        <p>{item.title}</p>
+        </div>
+        <MdArrowForwardIos />
+      </li>
+    ))
     const [catalog,setCatalog] = useState(false)
     let wish = useSelector(state => state.wishlist.value)
+    let cartitems = useSelector(state => state.cart.value)
     let navigate = useNavigate()
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
   return (
@@ -39,10 +57,22 @@ function Header({night,setNight}) {
                 <div className='catalog'>
                     <button className='catalogbtn'><IoMdList style={{fontSize: '120%'}}/>Каталог</button>
                     <div className='search'>
-                        <input type="search" name="" id="" placeholder='Поиск по товарам' />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" name="" id="" placeholder='Поиск по товарам' />
                         <button><IoIosSearch /></button>
+                        <ul className='searched'>
+                {
+                  search.trim() ?
+                  handlesearch(product).length ?
+                  pr.slice(0,8)
+                  :
+                  <li>Noto'g'ri ma'lumot</li>
+                  :
+                   <></>
+                }
+                </ul>
                     </div>
                 </div>
+                
                 <div className='pages'>
                     <div className='page' onClick={() => navigate('/wishlist')}>
                         <FaRegHeart style={{fontSize: '110%'}} />
@@ -53,9 +83,10 @@ function Header({night,setNight}) {
                         <LuBarChart />
                         <p>Сравнение</p>
                     </div>
-                    <div className='page' style={{fontSize: '110%'}}>
+                    <div className='page' style={{fontSize: '110%'}} onClick={() => navigate('/cart')}>
                         <FiShoppingCart />
                         <p>Корзина</p>
+                        <sup className='likesup'>{cartitems.length}</sup>
                     </div>
                 </div>
             </div>

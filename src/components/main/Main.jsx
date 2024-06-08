@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { togleWishlist } from '../context/wishlistSlice'
 import { FaHeart } from 'react-icons/fa'
+import { addToCart } from '../context/cartSlice'
 function Main({category, product}) {
     let dispatch = useDispatch()
     let navigate = useNavigate()
@@ -33,14 +34,20 @@ function Main({category, product}) {
         <li className='list' key={item.id}>
             <button className='likebtn' onClick={() => dispatch(togleWishlist(item))}>{wish.some(w => w.id === item.id) ?<FaHeart size={22} /> : <IoMdHeartEmpty size={25} />}</button>
             <img src={item.image} alt="" onClick={() => navigate(`product/${item.id}`)} />
-            <h4>{item.title.slice(0,15)}</h4>
+            <h4>{item.title?.slice(0,15)}</h4>
             <span>{+item.price + 100 + '.00'}₽</span>
             <div className='addcart'>
             <p>{item.price}₽</p>
-            <button><LuShoppingCart /></button>
+            <button onClick={() => dispatch(addToCart(item))}><LuShoppingCart /></button>
             </div>
         </li>
     ))
+    let categoriestitle = category?.map((item) => (
+        <li className='categorytitle' key={item.id}>
+            <p>{item.title}</p>
+        </li>
+    )); 
+    
     categories = categories.slice(0,6)
   return (
     <main className='main'>
@@ -87,14 +94,9 @@ function Main({category, product}) {
             <button className='arrowbtn' onClick={() => navigate('/allproducts')}>Все товары <IoIosArrowRoundForward size={20} /></button>
         </div>
         <ul className='categories'>
-            <li>Светильники</li>
-            <li>Люстры</li>
-            <li>Лампы</li>
-            <li>Настольные лампы</li>
-            <li>Ночники</li>
-            <li>Подстветка</li>
-            <li>Уличное освещение</li>
-            <li>Мебельные установки</li>
+            {
+                categoriestitle
+            }
         </ul>
         <ul className='lists'>
             {

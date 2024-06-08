@@ -16,6 +16,9 @@ import Blog from './pages/blog/Blog'
 import Wishlist from './pages/wishlist/Wishlist'
 import Error from './components/error/Error'
 import Loading from './components/loading/Loading'
+import Cart from './pages/cart/Cart'
+import Dashboard from './components/adminpanel/Dashboard'
+import EditProduct from './components/adminpanel/EditProduct'
 let categoryURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/categories'
 let productURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/products'
 function App() {
@@ -55,7 +58,7 @@ function App() {
    }
   return (
     <>
-      <Header night={night} setNight={setNight} />
+      <Header night={night} setNight={setNight} product={product} />
       <div className={night ? 'nightlight': ''}>
       <div className='container'>
       <Routes>
@@ -76,6 +79,9 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/wishlist' element={<Wishlist />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/admin' element={<Dashboard product={product} category={category} />} />
+        <Route path='/edit/:id' element={<EditProduct product={product} category={category} />} />
         <Route path='*' element={<Error />}/>
       </Routes>
       </div>
