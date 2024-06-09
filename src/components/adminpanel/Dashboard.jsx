@@ -48,7 +48,11 @@ function Dashboard({product,category}) {
           setManageproduct(false)
         }}><CiEdit color='white' size={25} /> Manage category</button>
         </div>
-        <button onClick={() => navigate('/')}><FiLogOut size={25} /> Log out</button>
+        <button onClick={() => {
+          navigate('/')
+          localStorage.removeItem('login')
+          
+        }}><FiLogOut size={25} /> Log out</button>
       </div>
       {
         createproduct ? <CreateProduct category={category} setCreateCategory={setCreateCategory} setCreateproduct={setCreateproduct} setManageCategory={setManageCategory} setManageproduct={setManageproduct} /> : <></>

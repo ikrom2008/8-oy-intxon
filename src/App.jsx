@@ -1,5 +1,6 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
+import './i18n'
 import Header from './components/header/Header'
 import Hero from './components/hero/Hero'
 import Main from './components/main/Main'
@@ -22,10 +23,18 @@ import EditProduct from './components/adminpanel/EditProduct'
 let categoryURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/categories'
 let productURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/products'
 function App() {
+  let navigate = useNavigate()
   const [category,setCategory] = useState([])
   const [product,setProduct] = useState([])
   const [loading,setLoading] = useState(null)
+  const [login,setLogin] = useState(JSON.parse(localStorage.getItem('login')) || null)
+  const [username,setUsername] = useState('')
+  const [password,setPassword] = useState('')
   const [night,setNight] = useState(JSON.parse(localStorage.getItem('mode')))
+  let locitem = localStorage.getItem("i18nextLng")
+    if(locitem === "ru-UZ"){
+        localStorage.setItem("i18nextLng","ru")
+    }
   const fetchdata = async () => {
     setLoading(true)
     try {
@@ -47,6 +56,16 @@ function App() {
       setLoading(false)
      }
    }
+   const handleSumbit = () => {
+      localStorage.setItem('login', JSON.stringify({
+        username,
+        password
+      }))
+      username == 'john32' && password == '87654321' ? navigate('/admin') : navigate('/')
+   }
+   useEffect(() => {
+    handleSumbit
+   },[login])
    useEffect(()=>{
        fetchdata()
    },[])
@@ -58,10 +77,25 @@ function App() {
    }
   return (
     <>
-      <Header night={night} setNight={setNight} product={product} />
+      {
+        login ? <Header night={night} setNight={setNight} product={product} /> : <></>
+      }
+      {
+        !login ? <div className='login'>
+        <form action="" className='loginwrapper' onSubmit={handleSumbit}>
+          <p>Login</p>
+          <div>
+          <input required value={username} onChange={(e) => setUsername(e.target.value)} type="text" name="" id="" placeholder='UserName' />
+          <input required value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="" id="" placeholder='Password' />
+          </div>
+          <button type='submit'>Login</button>
+        </form>
+    </div> : <></>
+      }
       <div className={night ? 'nightlight': ''}>
       <div className='container'>
-      <Routes>
+      {
+        login ? <Routes>
         <Route path='/' element={
           <>
             <Hero />
@@ -79,14 +113,17 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/wishlist' element={<Wishlist />} />
-        <Route path='/cart' element={<Cart />} />
+        <Route path='/cart' element={<Cart night={night} />} />
         <Route path='/admin' element={<Dashboard product={product} category={category} />} />
         <Route path='/edit/:id' element={<EditProduct product={product} category={category} />} />
         <Route path='*' element={<Error />}/>
-      </Routes>
+      </Routes> : <></>
+      }
       </div>
       </div>
-      <Footer night={night} />
+      {
+        login ? <Footer night={night} /> : <></>
+      }
     </>
   )
 }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import './Cart.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { decCart, incCart, removeFromCart } from '../../components/context/cartSlice'
+import { clearCart, decCart, incCart, removeFromCart } from '../../components/context/cartSlice'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { PatternFormat } from 'react-number-format'
-function Cart() {
+import Empty from '../../components/empty/Empty'
+function Cart({night}) {
     const [see,setSee] = useState(null)
     const [number,setNumber] = useState(null)
     let dispatch = useDispatch()
@@ -31,9 +32,15 @@ function Cart() {
     ))
     let hidencart = cartproducts.slice(0,3)
     let dostavka = 580
+    if(cartitems.length == 0){
+        return <Empty />
+    }
   return (
     <div className='cart'>
-      <p className='carttitle' style={{position: 'relative'}}>Корзина <sup style={{left: '155px',background: 'red'}} className='likesup wishsup' >{cartitems.length}</sup></p>
+        <div className='cartclear' style={night ? {background: 'black'}: {background: 'white'}}>
+        <p className='carttitle'  style={{position: 'relative'}}>Корзина <sup style={{left: '155px',background: 'red'}} className='likesup wishsup' >{cartitems.length}</sup></p>
+        <button onClick={() => dispatch(clearCart())}>Oчистить корзину</button>
+        </div>
       <ul className='cartlists'>
         <li className='cartlist lihider' style={{justifyContent: 'stretch', height: '20px'}}>
             <p style={{width: '16%'}}>Фото</p>

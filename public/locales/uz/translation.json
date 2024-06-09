@@ -1,0 +1,18 @@
+{
+    "kompaniyahq": "Kompaniya haqida",
+    "dostavka": "Yetkazib berish va to'lash",
+    "qaytarish": "Qaytarish",
+    "garant": "Kafolatlar",
+    "contact": "Kontaktlar",
+    "blog": "Blog",
+    "zakaz": "Buyurtma berish",
+    "selectval":{
+        "val1":"Ruscha",
+        "val2":"Uzbekcha"
+    },
+    "katalog":"Katalog",
+    "saralar": "Saralanganlar",
+    "bellashuv": "Bellashuv",
+    "cart": "Savat",
+    "placeholder": "Mahsulotlarni qidirish"
+}

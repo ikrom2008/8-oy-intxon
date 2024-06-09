@@ -63,7 +63,7 @@ function Main({category, product}) {
       <section className='siteabout'>
         <div className='sectiontitle'>
             <h3>Почему NORNLIGHT?</h3>
-            <button className='arrowbtn'>О компании <IoIosArrowRoundForward size={20} /></button>
+            <button className='arrowbtn' onClick={() => navigate('/about')}>О компании <IoIosArrowRoundForward size={20} /></button>
         </div>
         <div className='maqtovlar'>
             <div className='maqtov'>

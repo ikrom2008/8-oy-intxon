@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa'
 import { addToCart } from '../../components/context/cartSlice'
 import { IoMdHeartEmpty } from 'react-icons/io'
+import Empty from '../../components/empty/Empty'
 function Wishlist() {
     let navigate = useNavigate()
     let dispatch = useDispatch()
@@ -23,6 +24,9 @@ function Wishlist() {
       </div>
   </li>
     ))
+    if(wish.length == 0){
+      return <Empty />
+  }
   return (
     <div className='wishlist' >
         <p style={{fontSize: '40px', fontWeight: '600',position: 'relative'}}>Избранные товары<sup className='likesup wishsup' >{wish.length}</sup></p> 

@@ -3,13 +3,27 @@ import './Detail.css'
 import { useParams } from 'react-router-dom'
 import detimg from '../../assets/det.png'
 import { IoMdHeartEmpty } from 'react-icons/io'
+import { useDispatch, useSelector } from 'react-redux'
+import { togleWishlist } from '../context/wishlistSlice'
+import { FaHeart } from 'react-icons/fa'
+import { addToCart } from '../context/cartSlice'
 function Detail({product}) {
     let {id} = useParams()
-    const { title , image ,price} = product.find(findproduct => findproduct.id == id) || {};
+    const { title , image , price , desc , category } = product.find(findproduct => findproduct.id == id) || {};
+    let productan = {
+      id,
+      title,
+      image,
+      price,
+      desc,
+      category
+    }
     let oldprice = +price + 100 + '.00'
     useEffect(() =>{
       scrollTo(0,0)
     },[])
+    let wish = useSelector(state => state.wishlist.value)
+    let dispatch = useDispatch()
   return (
     <div className='detail'>
       <div className='productinfowrapper'>
@@ -33,7 +47,7 @@ function Detail({product}) {
             </div>
             <p className='productdesc'>Профессиональный гоночный хардтейл для кросс-кантри уровня Чемпионата и Кубка Мира. Одна из самых легких рам среди гоночных хардтейлов для кросс-кантри.</p>
             <div className='productbuttons'>
-            <button>В корзину</button> <button className='productlikebtn'><IoMdHeartEmpty /></button>
+            <button onClick={() => dispatch(addToCart(productan))}>В корзину</button> <button className='productlikebtn' onClick={() => dispatch(togleWishlist(id))}>{wish?.some(w => w.id === id) ?<FaHeart size={22} /> : <IoMdHeartEmpty size={25} />}</button>
             </div>
         </div>
       </div>
