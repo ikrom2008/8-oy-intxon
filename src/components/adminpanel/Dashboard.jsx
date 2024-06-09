@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import Manageproduct from './Manageproduct'
 import Createcategory from './Createcategory'
 import Managecategory from './Managecategory'
-function Dashboard({product,category}) {
+function Dashboard({product,category,setLogin}) {
   const [createproduct,setCreateproduct] = useState(true)
   const [createcategory,setCreateCategory] = useState(null)
   const [manageproduct,setManageproduct] = useState(null)
@@ -51,7 +51,7 @@ function Dashboard({product,category}) {
         <button onClick={() => {
           navigate('/')
           localStorage.removeItem('login')
-          
+          setLogin(false)
         }}><FiLogOut size={25} /> Log out</button>
       </div>
       {

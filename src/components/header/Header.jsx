@@ -10,7 +10,7 @@ import { Switch } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { MdArrowForwardIos, MdClear } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
-function Header({night,setNight,product}) {
+function Header({night,setNight,product,setLogin}) {
     const [lang,setLang] = useState(localStorage.getItem("i18nextLng") || "ru")
     let {t, i18n} = useTranslation()
     useEffect(() => {
@@ -50,7 +50,11 @@ function Header({night,setNight,product}) {
                     <li onClick={() => navigate('/blog')}>{t("blog")}</li>
                 </ul>
                 <div className='phonenum'>
-                    <strong>8 (800) 890-46-56</strong>
+                    <button onClick={() => {
+                        localStorage.removeItem('login')
+                        setLogin(false)
+                        navigate('/')
+                    }}>Log Out</button>
                     <p>{t("zakaz")}</p>
                     <Switch {...label} onClick={() => setNight(!night)} defaultChecked={night == true}  />
                     <p>Light/Night</p>
@@ -60,7 +64,6 @@ function Header({night,setNight,product}) {
                     </select>
                 </div>
             </nav>
-            
             <div className="logos">
                 <button style={catalog ? {position: 'fixed', background: 'white'} : {position: 'static'}} onClick={() => setCatalog(!catalog)} className='hiderkatalog'>{!catalog ? <IoMdList  style={{fontSize: '120%'}}/> : <MdClear  style={{fontSize: '120%'}}  />} </button>
                 {
@@ -78,6 +81,10 @@ function Header({night,setNight,product}) {
                         <option value="uz">{t("selectval.val2")}</option>
                     </select>
                         <button>{t("katalog")}</button>
+                        <button onClick={() => {
+                            localStorage.removeItem('login')
+                            setLogin(false)
+                        }}>Log Out</button>
                         <p>8 (800) 890-46-56</p>
                         <span>{t("zakaz")}</span>
                     </div> : <></>

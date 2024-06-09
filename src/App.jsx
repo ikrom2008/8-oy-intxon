@@ -78,7 +78,7 @@ function App() {
   return (
     <>
       {
-        login ? <Header night={night} setNight={setNight} product={product} /> : <></>
+        login ? <Header setLogin={setLogin} night={night} setNight={setNight} product={product} /> : <></>
       }
       {
         !login ? <div className='login'>
@@ -114,7 +114,7 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/cart' element={<Cart night={night} />} />
-        <Route path='/admin' element={<Dashboard product={product} category={category} />} />
+        <Route path='/admin' element={<Dashboard product={product} category={category} setLogin={setLogin} />} />
         <Route path='/edit/:id' element={<EditProduct product={product} category={category} />} />
         <Route path='*' element={<Error />}/>
       </Routes> : <></>
