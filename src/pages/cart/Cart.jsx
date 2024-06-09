@@ -5,7 +5,7 @@ import { clearCart, decCart, incCart, removeFromCart } from '../../components/co
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { PatternFormat } from 'react-number-format'
 import Empty from '../../components/empty/Empty'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function Cart({night}) {
     let navigate = useNavigate()
     const [see,setSee] = useState(null)
@@ -135,6 +135,9 @@ function Cart({night}) {
             <p>{totalPrice + dostavka}₽</p>
             <div>
                 <button type='submit'>Купить</button>
+                <Link to='https://t.me/+n9zRDa-ygndhM2Ey'>
+                <p className='botgo'>Botga o'tish</p>
+                </Link>
                 <p><input type="radio" name="" id=""/> Я согласен наобработку моих персональных данных</p>
             </div>
         </div>
