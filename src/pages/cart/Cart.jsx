@@ -19,7 +19,7 @@ function Cart({night}) {
     const totalPrice = cartitems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     let cartproducts = cartitems?.map((item) => (
         <li key={item.id} className='cartlist'>
-            <img src={item.image} alt="" />
+            <img src={item.image} alt="" onClick={() => navigate(`/product/${item.id}`)} />
            <div className="formedia cartlist">
            <div className='cartitemtitle'>
                 <p>{item.title}</p>

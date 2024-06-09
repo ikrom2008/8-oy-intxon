@@ -84,6 +84,32 @@
         color: rgba(69, 69, 69, 1);
     }
 }
+.numbercart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    height: 31px;
+    p{
+        width: 30px;
+        height: 30px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        background: white;
+        color: black;
+        width: 30px;
+        border: none;
+        height: 30px;
+        border-radius: 5px;
+    }
+}
 .detailimagecont{
     display: none;
 }

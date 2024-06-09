@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Detail.css'
 import { useParams } from 'react-router-dom'
 import detimg from '../../assets/det.png'
@@ -6,17 +6,19 @@ import { IoMdHeartEmpty } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { togleWishlist } from '../context/wishlistSlice'
 import { FaHeart } from 'react-icons/fa'
-import { addToCart } from '../context/cartSlice'
+import { addToCart, incCart } from '../context/cartSlice'
 function Detail({product}) {
     let {id} = useParams()
-    const { title , image , price , desc , category } = product.find(findproduct => findproduct.id == id) || {};
+    const [productqu,setProductqu] = useState(false)
+    const { title , image , price , desc , category , quantity=1} = product.find(findproduct => findproduct.id == id) || {};
     let productan = {
       id,
       title,
       image,
       price,
       desc,
-      category
+      category,
+      quantity
     }
     let oldprice = +price + 100 + '.00'
     useEffect(() =>{
@@ -47,7 +49,17 @@ function Detail({product}) {
             </div>
             <p className='productdesc'>Профессиональный гоночный хардтейл для кросс-кантри уровня Чемпионата и Кубка Мира. Одна из самых легких рам среди гоночных хардтейлов для кросс-кантри.</p>
             <div className='productbuttons'>
-            <button onClick={() => dispatch(addToCart(productan))}>В корзину</button> <button className='productlikebtn' onClick={() => dispatch(togleWishlist(id))}>{wish?.some(w => w.id === id) ?<FaHeart size={22} /> : <IoMdHeartEmpty size={25} />}</button>
+              {
+                productqu ? <div className='numbercart'>
+                    <button>-</button>
+                    <p>{quantity}</p>
+                    <button onClick={() => dispatch(incCart(productan))}>+</button>
+                </div> : <></>
+              }
+            <button onClick={() => {
+              dispatch(addToCart(productan))
+              setProductqu(true)
+            }}>В корзину</button> <button className='productlikebtn' onClick={() => dispatch(togleWishlist(id))}>{wish?.some(w => w.id === id) ?<FaHeart size={22} /> : <IoMdHeartEmpty size={25} />}</button>
             </div>
         </div>
       </div>
