@@ -2,6 +2,20 @@ import { api } from './api'
 
 export const productApi = api.injectEndpoints({
   endpoints: (build) => ({
+    getProducts: build.query({
+      query: (params) => ({ 
+        url: '/api/products', 
+        params 
+      }),
+      providesTags:["Product"]
+    }),
+    getCategory: build.query({
+      query: (params) => ({ 
+        url: '/api/categories', 
+        params 
+      }),
+      providesTags:["Category"]
+    }),
     createProduct: build.mutation({
       query: (body)=> ({
         url: "/api/products",
@@ -58,4 +72,6 @@ export const {
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
   useUpdataCategoryMutation,
+  useGetProductsQuery,
+  useGetCategoryQuery,
 } = productApi

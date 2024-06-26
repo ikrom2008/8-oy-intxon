@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import Manageproduct from './Manageproduct'
 import Createcategory from './Createcategory'
 import Managecategory from './Managecategory'
-function Dashboard({product,category,setLogin}) {
+function Dashboard({category,setLogin}) {
   const [createproduct,setCreateproduct] = useState(true)
   const [createcategory,setCreateCategory] = useState(null)
   const [manageproduct,setManageproduct] = useState(null)
@@ -58,13 +58,13 @@ function Dashboard({product,category,setLogin}) {
         createproduct ? <CreateProduct category={category} setCreateCategory={setCreateCategory} setCreateproduct={setCreateproduct} setManageCategory={setManageCategory} setManageproduct={setManageproduct} /> : <></>
       }
       {
-        manageproduct ? <Manageproduct product={product} category={category} /> : <></>
+        manageproduct ? <Manageproduct  /> : <></>
       }
       {
         createcategory ? <Createcategory setCreateCategory={setCreateCategory} setCreateproduct={setCreateproduct} setManageCategory={setManageCategory} setManageproduct={setManageproduct} /> : <></>
       }
       {
-        managecategory ? <Managecategory category={category} /> : <></>
+        managecategory ? <Managecategory /> : <></>
       }
       
     </div>

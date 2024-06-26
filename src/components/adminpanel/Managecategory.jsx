@@ -1,14 +1,14 @@
 import React from 'react'
-import { useDeleteCategoryMutation, useUpdataCategoryMutation } from '../context/getRequest'
+import { useDeleteCategoryMutation, useGetCategoryQuery, useUpdataCategoryMutation } from '../context/getRequest'
 import { CiEdit } from 'react-icons/ci'
 
-function Managecategory({category}) {
+function Managecategory() {
     const [deleteCategory] = useDeleteCategoryMutation()
     const handleDelete = (id) => {
         deleteCategory(id)
     }
     const [updated] = useUpdataCategoryMutation()
-    
+    const {data} = useGetCategoryQuery()
     const handleUpdate = (id,title) => {
         let updateData = {
             _id: id,
@@ -16,7 +16,7 @@ function Managecategory({category}) {
         };
         updated({ _id: id, body: updateData });
     };
-    let categoryes = category?.map((item) => (
+    let categoryes = data?.map((item) => (
         <li key={item.id} className='managecategory'>
             <p>{item.title}</p>
             <button onClick={() => handleDelete(item.id)}>Delete</button>

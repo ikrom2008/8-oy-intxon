@@ -10,7 +10,7 @@ import { addToCart, incCart } from '../context/cartSlice'
 function Detail({product}) {
     let {id} = useParams()
     const [productqu,setProductqu] = useState(false)
-    const { title , image , price , desc , category , quantity=1} = product.find(findproduct => findproduct.id == id) || {};
+    const { title , image , price , desc , category , quantity=1} = product?.find(findproduct => findproduct.id == id) || {};
     let productan = {
       id,
       title,

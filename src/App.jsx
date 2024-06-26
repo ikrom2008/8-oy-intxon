@@ -20,13 +20,15 @@ import Loading from './components/loading/Loading'
 import Cart from './pages/cart/Cart'
 import Dashboard from './components/adminpanel/Dashboard'
 import EditProduct from './components/adminpanel/EditProduct'
-let categoryURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/categories'
-let productURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/products'
+import { useGetCategoryQuery, useGetProductsQuery } from './components/context/getRequest'
+// let categoryURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/categories'
+// let productURL = 'https://6634b1db9bb0df2359a26989.mockapi.io/api/products'
 function App() {
+  const {data: categorydata,isLoading: categoryLoading} = useGetCategoryQuery()
+  const {data: productdata,isLoading} = useGetProductsQuery()
   let navigate = useNavigate()
   const [category,setCategory] = useState([])
   const [product,setProduct] = useState([])
-  const [loading,setLoading] = useState(null)
   const [login,setLogin] = useState(JSON.parse(localStorage.getItem('login')) || null)
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
@@ -35,27 +37,6 @@ function App() {
     if(locitem === "ru-UZ"){
         localStorage.setItem("i18nextLng","ru")
     }
-  const fetchdata = async () => {
-    setLoading(true)
-    try {
-     const resp = await fetch(categoryURL)
-     const data = await resp.json()
-     setCategory(data)
-     setLoading(false)
-    } catch (error) {
-     console.log(error);
-     setLoading(false)
-    }
-    try {
-      const resp = await fetch(productURL)
-      const data = await resp.json()
-      setProduct(data)
-      setLoading(false)
-     } catch (error) {
-      console.log(error);
-      setLoading(false)
-     }
-   }
    const handleSumbit = () => {
       localStorage.setItem('login', JSON.stringify({
         username,
@@ -66,13 +47,13 @@ function App() {
    useEffect(() => {
     handleSumbit
    },[login])
-   useEffect(()=>{
-       fetchdata()
-   },[])
+  //  useEffect(()=>{
+  //      fetchdata()
+  //  },[])
    useEffect(()=>{
        localStorage.setItem('mode', JSON.stringify(night))
    },[night])
-   if(loading){
+   if(isLoading || categoryLoading){
     return <Loading />
    }
   return (
@@ -99,13 +80,13 @@ function App() {
         <Route path='/' element={
           <>
             <Hero />
-            <Main category={category} product={product} />
+            <Main category={categorydata} product={productdata} />
           </>
         } />
-        <Route path='allproducts' element={<Allproducts product={product} />} />
-        <Route path='/product/:id' element={<Detail product={product} />} />
-        <Route path='allproducts/product/:id' element={<Detail product={product} />} />
-        <Route path='wishlist/product/:id' element={<Detail product={product} />} />
+        <Route path='allproducts' element={<Allproducts product={productdata} />} />
+        <Route path='/product/:id' element={<Detail product={productdata} />} />
+        <Route path='allproducts/product/:id' element={<Detail product={productdata} />} />
+        <Route path='wishlist/product/:id' element={<Detail product={productdata} />} />
         <Route path='/about' element={<About />} />
         <Route path='/yetkazib-berish' element={<Yetkazibberish />} />
         <Route path='/qaytarish' element={<Qaytarish />} />
@@ -114,8 +95,8 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/cart' element={<Cart night={night} />} />
-        <Route path='/admin' element={<Dashboard product={product} category={category} setLogin={setLogin} />} />
-        <Route path='/edit/:id' element={<EditProduct product={product} category={category} />} />
+        <Route path='/admin' element={<Dashboard category={categorydata} setLogin={setLogin} />} />
+        <Route path='/edit/:id' element={<EditProduct product={productdata} category={categorydata} />} />
         <Route path='*' element={<Error />}/>
       </Routes> : <></>
       }

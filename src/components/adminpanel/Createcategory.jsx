@@ -21,7 +21,7 @@ function Createcategory({ category, setCreateCategory, setCreateproduct, setMana
       <form action="" className='createcategorywrapper' onSubmit={handleSumbit}>
         <div>
             <label htmlFor="">Title</label>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" name="" id="" />
+            <input value={title} required onChange={(e) => setTitle(e.target.value)} type="text" name="" id="" />
         </div>
         <button type='submit'>Create</button>
       </form>

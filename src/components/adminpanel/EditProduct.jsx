@@ -51,7 +51,7 @@ function EditProduct({product,category}) {
                     <label htmlFor="">Desc</label>
                     <textarea value={desc} onChange={(e) => setDesc(e.target.value)} required name="" id=""></textarea>
                 </div>
-                <button type='submit'>Create</button>
+                <button type='submit'>Edit</button>
             </form>
             </div>
   )

@@ -16,7 +16,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { togleWishlist } from '../context/wishlistSlice'
 import { FaHeart } from 'react-icons/fa'
 import { addToCart } from '../context/cartSlice'
+// import { useGetCategoryQuery, useGetProductsQuery } from '../context/getRequest'
 function Main({category, product}) {
+    // const {data: categorydata} = useGetCategoryQuery()
+    // const {data: productdata} = useGetProductsQuery()
     let dispatch = useDispatch()
     let navigate = useNavigate()
     const [more,setMore] = useState(null)
@@ -48,7 +51,7 @@ function Main({category, product}) {
         </li>
     )); 
     
-    categories = categories.slice(0,6)
+    categories = categories?.slice(0,6)
   return (
     <main className='main'>
       <section className='catalogsection'>
@@ -100,7 +103,7 @@ function Main({category, product}) {
         </ul>
         <ul className='lists'>
             {
-                more ? products : products.slice(0,8)
+                more ? products : products?.slice(0,8)
             }
         </ul>
         <button onClick={() => setMore(!more)} className='loadhide'>{more ? 'Hide': 'Load more'}</button>

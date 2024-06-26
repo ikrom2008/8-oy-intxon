@@ -97,7 +97,7 @@ function Header({night,setNight,product,setLogin}) {
                         <button><IoIosSearch /></button>
                         <ul className='searched'>
                 {
-                  search.trim() ?
+                  search?.trim() ?
                   handlesearch(product).length ?
                   pr.slice(0,8)
                   :
@@ -127,8 +127,19 @@ function Header({night,setNight,product,setLogin}) {
             </div>
             <div className='unhidercon'>
             <div className='search unhider'>
-                        <input type="search" name="" id="" placeholder='Поиск по товарам' />
+                        <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" name="" id="" placeholder='Поиск по товарам' />
                         <button><IoIosSearch  /></button>
+                        <ul className='searched'>
+                {
+                  search?.trim() ?
+                  handlesearch(product).length ?
+                  pr?.slice(0,8)
+                  :
+                  <li>Noto'g'ri ma'lumot</li>
+                  :
+                   <></>
+                }
+                </ul>
             </div>
             <div className='labelnav'>
                 <Switch {...label} onClick={() => setNight(!night)} defaultChecked={night == true}  />
